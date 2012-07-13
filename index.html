@@ -16,7 +16,7 @@
         		var docData;
         		var bodyEl = $("#body");
         		var templateEl = $("#template"); 
-        		var templateCodeEl = $("#template_code"); 
+
         		var navEl = $("#menu a");
         		
         		// Init Doc
@@ -49,7 +49,6 @@
 				  		var el = docData.doc[par];
 				  		
 				    	templateEl.tmpl( el ).appendTo(bodyEl);
-				    	templateCodeEl.tmpl( el.codesamples ).appendTo(bodyEl);
 				    });
 				}
         	});
@@ -149,11 +148,24 @@
 			<h4>${name}</h4>
 			<p>${description}</p>
 			<h3>Codebeispiele</h3>
-		</div>
-		<div id="template_code">
-			<h4>${title}</h4>
-			<p>${description}</p>
-			<code>${code}</code>
+			
+			<!-- CODESAMPLES -->
+			<ul class="nav nav-tabs" id="${title}">
+			{{each codesamples}}
+				<li class="{{if $index == 0}}active{{/if}}"><a href="#code${$index + 1}" data-toggle="tab">${title}</a></li>
+			{{/each}}
+			</ul>
+			
+			<div class="tab-content">
+			{{each codesamples}}
+				<div class="tab-pane{{if $index == 0}} active{{/if}}" id="code${$index + 1}">
+					<h4>${title}</h4>
+					<p>${description}</p>
+					<code>${code}</code>
+				</div>		
+			{{/each}}
+			</div>
+			
 		</div>
     </body>
 </html>
