@@ -1,0 +1,23 @@
+{
+	"title": "test",
+	"updated": "12.07.2012",
+	"doc": {
+		"start": {
+			"title": "home",
+			"name": "name",
+			"description": "Beschreibung",
+			"codesamples": [{
+				"title": "title",
+				"description" : "desciption",
+				"code" : "code"
+			},{
+				"title": "title",
+				"description" : "desciption",
+				"code" : "code"
+			}]
+		},
+		"menue": {
+			"title": "anderes"
+		}
+	}
+}

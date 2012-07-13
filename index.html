@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <title>Supris3 - Modules Documentation</title>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+        	$(document).ready(function(){
+        		console.log("doc loaded!");
+        
+        		// Basic Vars
+        		var docData;
+        		var bodyEl = $("#body");
+        		var templateEl = $("#template"); 
+        		var templateCodeEl = $("#template_code"); 
+        		var navEl = $("#menu a");
+        		
+        		// Init Doc
+        		getDocumentation();
+        		
+				// trigger Click on Menu
+				navEl.click(function(){
+					var that = $(this);
+					var selected = that.attr("href").replace("#", "");
+					
+					$(".active").toggleClass("active");
+					that.parent().toggleClass("active");
+					
+					setTemplateData(selected);
+				});
+        		
+        		// Get JsonObject with Documentation
+        		function getDocumentation( ) {
+					$.getJSON("data/doc.json").pipe(function (data) {
+				  		docData = data;  		
+				  		setTemplateData('start');
+				    });
+				}
+				
+				// Set Template
+				function setTemplateData(par) {
+					$.get("modules/template.html", function(data){
+				  		bodyEl.html('');
+				  		console.log(docData.doc[par]);
+				  		var el = docData.doc[par];
+				  		
+				    	templateEl.tmpl( el ).appendTo(bodyEl);
+				    	templateCodeEl.tmpl( el.codesamples ).appendTo(bodyEl);
+				    });
+				}
+        	});
+        </script>
+    </head>
+    <body>
+		<div class="container-fluid">
+		  <div class="row-fluid">
+			<div class="span2">
+				<div class="well" style="padding: 8px 0px">
+			    	<ul id="menu" class="nav nav-list">
+						<li class="active">
+							<a href="#start">Home</a>
+						</li>
+						<li class="nav-header">
+							Fixe Elemente
+						</li>
+						<li>
+							<a href="#menue">Menue</a>
+						</li>
+						<li class="divider"></li>
+						<li class="nav-header">
+							UserControls
+						</li>
+						<li>
+							<a href="#">Kontextmenues</a>
+						</li>
+						<li>
+							<a href="#">Suchfeld</a>
+						</li>
+						<li>
+							<a href="#">Bereichscontainer</a>
+						</li>
+						<li>
+							<a href="#">Werbebanner</a>
+						</li>
+						<li>
+							<a href="#">Dynamische Kurzlisten</a>
+						</li>
+						<li>
+							<a href="#">Tabellen</a>
+						</li>
+						<li>
+							<a href="#">Popup - Windows</a>
+						</li>
+						<li>
+							<a href="#">Tooltips</a>
+						</li>
+						<li>
+							<a href="#">Gallery</a>
+						</li>
+						<li>
+							<a href="#">WYSIWYG Editor</a>
+						</li>
+						<li class="divider"></li>
+						<li class="nav-header">
+							Form Elemente
+						</li>
+						<li>
+							<a href="#">Datepicker</a>
+						</li>
+						<li>
+							<a href="#">Uhrzeit</a>
+						</li>	
+						<li>
+							<a href="#">Input mit Button</a>
+						</li>						
+						<li>
+							<a href="#">Input mit Validierung</a>
+						</li>	
+						<li>
+							<a href="#">dynamische Inputs</a>
+						</li>	
+						<li class="divider"></li>
+						<li class="nav-header">
+							Sonstige Elemente
+						</li>
+						<li>
+							<a href="#">TabControl</a>
+						</li>
+						<li>
+							<a href="#">Progressbar</a>
+						</li>
+						<li>
+							<a href="#">Bubbles</a>
+						</li>
+					</ul>
+				</div>
+		    </div>
+		    <div id="body" class="span10">
+		      <!--Body content-->
+		    </div>
+		  </div>
+		</div>
+		<div id="template">
+			<h2>${title}</h2>
+			<h4>${name}</h4>
+			<p>${description}</p>
+			<h3>Codebeispiele</h3>
+		</div>
+		<div id="template_code">
+			<h4>${title}</h4>
+			<p>${description}</p>
+			<code>${code}</code>
+		</div>
+    </body>
+</html>
