@@ -1,4 +1,4 @@
 aDoc
 ====
 
-simple jQuery / json based documentation project for small software
+simple jQuery / json based documentation project for small software projects
